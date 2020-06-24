@@ -59,7 +59,7 @@ export class CsvUploadComponent implements OnInit {
           // tslint:disable-next-line: prefer-for-of
           for (let i = 0; i < results.data.length; i++) {
             const transaction = {
-              _id: results.data[i]._id,
+              _id: results.data[i].id,
               cardHolderHash: results.data[i].cardHolderHash,
               datetime: results.data[i].datetime,
               amount: results.data[i].amount,
