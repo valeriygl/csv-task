@@ -12,6 +12,9 @@ const postTransactions = async (
 
     res.json(result);
   } catch (err) {
+    if (err.name === 'BulkWriteError') {
+      res.sendStatus(422);
+    }
     next(err);
   }
 };
