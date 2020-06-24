@@ -4,13 +4,12 @@ import bodyParser from 'body-parser';
 import errorHandler from 'errorhandler';
 
 import mongo from './config/mongoConfig';
+import { port } from './config/config';
 import transactionRouter from './routes/transactionRouter';
 
 mongo();
 
 const app = express();
-
-const port = 3000;
 
 app.use(cors());
 
