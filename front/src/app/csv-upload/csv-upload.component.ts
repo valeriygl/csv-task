@@ -1,4 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { Papa } from 'ngx-papaparse';
 import { DataService } from '../data.service';
 
@@ -9,24 +16,42 @@ import { DataService } from '../data.service';
 })
 export class CsvUploadComponent implements OnInit {
   constructor(private papa: Papa, private dataService: DataService) {}
+
+  @ViewChild('myInput')
+  myInputVariable: ElementRef;
+
   @Output() updateView = new EventEmitter();
+
   test: {}[] = [];
+
+  reset() {
+    this.myInputVariable.nativeElement.value = '';
+  }
 
   ngOnInit(): void {}
 
   uploadToStorage() {
     this.dataService
       .sendPostRequest(JSON.stringify(this.test))
-      .subscribe(() => this.updateView.emit());
+      .subscribe(() => {
+        this.updateView.emit();
+        this.test = [];
+      });
   }
 
   handleFileSelect(evt: any) {
+    this.test = [];
+
     const files = evt.target.files;
+
     const file = files[0];
+
     const reader = new FileReader();
+
     reader.readAsText(file);
     reader.onload = (event: any) => {
       const csv = event.target.result;
+
       this.papa.parse(csv, {
         skipEmptyLines: true,
         header: true,
@@ -39,9 +64,11 @@ export class CsvUploadComponent implements OnInit {
               datetime: results.data[i].datetime,
               amount: results.data[i].amount,
             };
+
             this.test.push(transaction);
           }
           console.log(JSON.stringify(this.test));
+          this.reset();
         },
       });
     };
