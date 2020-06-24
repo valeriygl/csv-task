@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const localhoustUrl =
   'mongodb+srv://root:123@cluster0-tjkuc.mongodb.net/test?retryWrites=true&w=majority';
 
 const url = process.env.mongoDbUrl || localhoustUrl;
 
-module.exports = function () {
+export default function () {
   mongoose.connect(url);
 
   mongoose.connection.on('connected', function () {
@@ -28,4 +28,4 @@ module.exports = function () {
       process.exit(0);
     });
   });
-};
+}

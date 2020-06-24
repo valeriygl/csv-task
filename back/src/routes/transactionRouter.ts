@@ -1,5 +1,6 @@
-const controllers = require('../controllers');
-const expres = require('express');
+import expres from 'express';
+
+import controllers from '../controllers';
 
 const transactionRouter = expres.Router();
 
@@ -14,4 +15,4 @@ transactionRouter
   .put(controllers.updateTransaction)
   .delete(controllers.deleteTransaction);
 
-module.exports = transactionRouter;
+export default transactionRouter;

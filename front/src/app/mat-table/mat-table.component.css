@@ -1,0 +1,17 @@
+table {
+  width: 100%;
+}
+
+.csv {
+  display: flex;
+  margin-top: 20px;
+  justify-content: flex-start;
+}
+
+.total_data {
+  margin: 20px;
+}
+
+span {
+  font-weight: bold;
+}
